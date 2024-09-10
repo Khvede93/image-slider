@@ -10,11 +10,13 @@ export const ImageSlider = ({ url, limit }) => {
   async function fetchImages(getUrl) {
     try {
       setLoading(true);
-      const response = await fetch(getUrl);
+      const response = await fetch(`${getUrl}?&limit=${limit}`);
+      console.log(response);
+
       const responseData = await response.json();
 
-      if (data) {
-        setImages(data);
+      if (responseData) {
+        setImages(responseData);
       }
     } catch (e) {
       setErrorM(e.message);
@@ -28,6 +30,14 @@ export const ImageSlider = ({ url, limit }) => {
       fetchImages(url);
     }
   }, [url]);
+
+  if (loading) {
+    return <div>Loading Data ! Please Wait </div>;
+  }
+
+  if (errorM == !'') {
+    return <div>Something Went Wrong ! {errorM}</div>;
+  }
 
   return <div className='container'>ImageSlider</div>;
 };
