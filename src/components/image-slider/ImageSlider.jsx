@@ -4,14 +4,18 @@ import './styles.css';
 export const ImageSlider = ({ url, limit }) => {
   const [images, setImages] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [errorM, setErrorM] = useState('');
+  const [errorM, setErrorM] = useState(null);
   const [loading, setLoading] = useState(false);
 
   async function fetchImages(getUrl) {
     try {
       setLoading(true);
       const response = await fetch(`${getUrl}?&limit=${limit}`);
-      console.log(response);
+
+      if (!response.ok) {
+        setErrorM(`Failed fetching images ! ${response.status}`);
+        return;
+      }
 
       const responseData = await response.json();
 
@@ -35,9 +39,9 @@ export const ImageSlider = ({ url, limit }) => {
     return <div>Loading Data ! Please Wait </div>;
   }
 
-  if (errorM == !'') {
+  if (errorM !== '') {
     return <div>Something Went Wrong ! {errorM}</div>;
   }
 
-  return <div className='container'>ImageSlider</div>;
+  return <div className='container'>{images.map((image) => 'image ')}</div>;
 };
