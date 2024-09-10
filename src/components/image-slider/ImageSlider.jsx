@@ -38,8 +38,13 @@ export const ImageSlider = ({ url, limit = 5 }) => {
   function handlePrevious() {
     setCurrentSlide(currentSlide === 0 ? images.length - 1 : currentSlide - 1);
   }
+
   function handleNext() {
     setCurrentSlide(currentSlide === images.length - 1 ? 0 : currentSlide + 1);
+  }
+
+  function handleCircleClick(getIndex) {
+    setCurrentSlide(getIndex);
   }
 
   useEffect(() => {
@@ -82,6 +87,7 @@ export const ImageSlider = ({ url, limit = 5 }) => {
                 className={
                   currentSlide === i ? 'current-circle circle' : 'circle'
                 }
+                onClick={() => handleCircleClick(i)}
               ></button>
             ))
           : null}

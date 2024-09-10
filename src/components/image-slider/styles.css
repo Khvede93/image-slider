@@ -20,17 +20,22 @@
 
 .arrow {
   position: absolute;
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
   color: white;
+  cursor: pointer;
+}
+
+.arrow:hover {
+  color: #c9c7c7;
 }
 
 .arrow-left {
-  left: 1rem;
+  left: 1.5rem;
 }
 
 .arrow-right {
-  right: 1rem;
+  right: 1.5rem;
 }
 
 .slider-circles {
@@ -41,7 +46,7 @@
 }
 
 .circle {
-  background-color: #fff;
+  background-color: #555555;
   height: 1.5rem;
   width: 1.5rem;
   border-radius: 50%;
@@ -50,6 +55,10 @@
   cursor: pointer;
 }
 
+.circle:hover {
+  background: #c9c7c7;
+}
+
 .current-circle {
-  background-color: #737272;
+  background-color: #fff;
 }
