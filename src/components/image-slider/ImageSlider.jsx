@@ -4,7 +4,7 @@ import './styles.css';
 export const ImageSlider = ({ url, limit }) => {
   const [images, setImages] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [errorM, setErrorM] = useState(null);
+  const [errorM, setErrorM] = useState('');
   const [loading, setLoading] = useState(false);
 
   async function fetchImages(getUrl) {
@@ -13,7 +13,7 @@ export const ImageSlider = ({ url, limit }) => {
       const response = await fetch(`${getUrl}?&limit=${limit}`);
 
       if (!response.ok) {
-        setErrorM(`Failed fetching images ! ${response.status}`);
+        setErrorM(`Failed fetching images !`);
         return;
       }
 
