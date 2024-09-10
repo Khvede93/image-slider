@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, useEffect, useState } from 'react';
 import './styles.css';
+import { CgArrowLeftO, CgArrowRightO } from 'react-icons/cg';
 
-export const ImageSlider = ({ url, limit }) => {
+export const ImageSlider = ({ url, limit = 5 }) => {
   const [images, setImages] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [errorM, setErrorM] = useState('');
@@ -20,7 +21,12 @@ export const ImageSlider = ({ url, limit }) => {
       const responseData = await response.json();
 
       if (responseData) {
-        setImages(responseData);
+        const imagesData = responseData.map((data) => {
+          let newData = { url: data.download_url, id: data.id };
+          return newData;
+        });
+
+        setImages(imagesData);
       }
     } catch (e) {
       setErrorM(e.message);
@@ -43,5 +49,13 @@ export const ImageSlider = ({ url, limit }) => {
     return <div>Something Went Wrong ! {errorM}</div>;
   }
 
-  return <div className='container'>{images.map((image) => 'image ')}</div>;
+  return (
+    <section className='container'>
+      <CgArrowLeftO className='arrow arrow-left' />
+      {images.map((image) => (
+        <img key={image.id} src={image.url} alt='slider image' loading='lazy' />
+      ))}
+      <CgArrowRightO className='arrow arrow-right' />
+    </section>
+  );
 };
