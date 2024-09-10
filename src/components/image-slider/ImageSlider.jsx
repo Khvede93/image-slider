@@ -1,6 +1,6 @@
 import React, { lazy, useEffect, useState } from 'react';
 import './styles.css';
-import { CgArrowLeftO, CgArrowRightO } from 'react-icons/cg';
+import { BsArrowLeftCircle, BsArrowRightCircle } from 'react-icons/bs';
 
 export const ImageSlider = ({ url, limit = 5 }) => {
   const [images, setImages] = useState([]);
@@ -51,11 +51,26 @@ export const ImageSlider = ({ url, limit = 5 }) => {
 
   return (
     <section className='container'>
-      <CgArrowLeftO className='arrow arrow-left' />
-      {images.map((image) => (
-        <img key={image.id} src={image.url} alt='slider image' loading='lazy' />
-      ))}
-      <CgArrowRightO className='arrow arrow-right' />
+      <BsArrowLeftCircle className='arrow arrow-left' />
+      {images && images.length
+        ? images.map((image) => (
+            <img
+              key={image.id}
+              src={image.url}
+              alt='slider image'
+              loading='lazy'
+              className='current-image'
+            />
+          ))
+        : null}
+      <BsArrowRightCircle className='arrow arrow-right' />
+      <span className='slider-circles'>
+        {images && images.length
+          ? images.map((img) => (
+              <button key={img.id} className='current-circle'></button>
+            ))
+          : null}
+      </span>
     </section>
   );
 };
