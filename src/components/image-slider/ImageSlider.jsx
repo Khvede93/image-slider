@@ -35,6 +35,13 @@ export const ImageSlider = ({ url, limit = 5 }) => {
     }
   }
 
+  function handlePrevious() {
+    setCurrentSlide(currentSlide === 0 ? images.length - 1 : currentSlide - 1);
+  }
+  function handleNext() {
+    setCurrentSlide(currentSlide === images.length - 1 ? 0 : currentSlide + 1);
+  }
+
   useEffect(() => {
     if (url !== '') {
       fetchImages(url);
@@ -51,23 +58,31 @@ export const ImageSlider = ({ url, limit = 5 }) => {
 
   return (
     <section className='container'>
-      <BsArrowLeftCircle className='arrow arrow-left' />
+      <BsArrowLeftCircle
+        className='arrow arrow-left'
+        onClick={handlePrevious}
+      />
       {images && images.length
-        ? images.map((image) => (
+        ? images.map((image, i) => (
             <img
               key={image.id}
               src={image.url}
               alt='slider image'
               loading='lazy'
-              className='current-image'
+              className={currentSlide === i ? 'current-image' : 'hide'}
             />
           ))
         : null}
-      <BsArrowRightCircle className='arrow arrow-right' />
+      <BsArrowRightCircle className='arrow arrow-right' onClick={handleNext} />
       <span className='slider-circles'>
         {images && images.length
-          ? images.map((img) => (
-              <button key={img.id} className='current-circle'></button>
+          ? images.map((img, i) => (
+              <button
+                key={img.id}
+                className={
+                  currentSlide === i ? 'current-circle circle' : 'circle'
+                }
+              ></button>
             ))
           : null}
       </span>
